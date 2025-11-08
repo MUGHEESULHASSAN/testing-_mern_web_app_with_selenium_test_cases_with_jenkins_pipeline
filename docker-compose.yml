@@ -2,22 +2,21 @@ version: "3.9"
 
 services:
   backend:
-    image: mugheesulhassan/backend
+    # --- FIX: Use Node.js image to provide the 'npm' tool ---
+    image: node:20-alpine
     container_name: backend-jenkins
     ports:
       - "5000:4000"
-    # --- REQUIRED CHANGE: Use env_file instead of environment block ---
     env_file:
-      - ./backend/.env # <-- Docker Compose loads ALL variables from this file
-    # --- END REQUIRED CHANGE ---
+      - ./backend/.env
     volumes:
       - ./backend:/app
     working_dir: /app
     command: sh -c "npm install && npm start"
 
   user-frontend:
-    # ... (remains unchanged)
-    image: mugheesulhassan/user-frontend
+    # --- FIX: Use Node.js image to provide the 'npm' tool ---
+    image: node:20-alpine
     container_name: user-frontend-jenkins
     ports:
       - "3001:3000"
@@ -29,8 +28,8 @@ services:
       - backend
 
   admin-frontend:
-    # ... (remains unchanged)
-    image: mugheesulhassan/admin-frontend
+    # --- FIX: Use Node.js image to provide the 'npm' tool ---
+    image: node:20-alpine
     container_name: admin-frontend-jenkins
     ports:
       - "3002:3000"
@@ -42,7 +41,7 @@ services:
       - backend
 
   nginx:
-    # ... (remains unchanged)
+    # (Remains unchanged as it is not a Node.js application)
     image: nginx:alpine
     container_name: nginx_jenkins
     ports:
