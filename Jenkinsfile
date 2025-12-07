@@ -11,7 +11,7 @@ pipeline {
         stage('Build & Run Containers') {
             steps {
                 sh 'sudo docker compose down || true'
-                sh 'sudo docker compose up -d --build'
+            sh 'sudo docker compose up -d --build'
             }
         }
 
@@ -35,16 +35,11 @@ pipeline {
     }
 
     post {
-        always {
-            echo "Archiving screenshots..."
-            sh 'mkdir -p screenshots'
-            sh 'sudo docker cp selenium-tests:/app/screenshots ./screenshots || true'
-        }
         success {
-            echo "✅ CI Build Completed Successfully!"
+            echo " CI Build Completed Successfully!"
         }
         failure {
-            echo "❌ Build Failed. Check logs."
+            echo " Build Failed. Check logs."
         }
     }
 }
