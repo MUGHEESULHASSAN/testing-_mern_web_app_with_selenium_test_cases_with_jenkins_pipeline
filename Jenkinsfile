@@ -29,16 +29,16 @@ pipeline {
 
         stage('Run Selenium Tests') {
             steps {
-                // Clone Selenium test repository
-                sh 'git clone https://github.com/MUGHEESULHASSAN/test_cases_assignment_3.git '
-                sh 'sleep 20'
+   
+
                 
-                // Navigate into test repo
-                dir('test_cases_assignment_3') {
-                    // Build Docker container for Selenium tests
+               
+                dir('selenium-tests') {
+                    sh 'sleep 10'
+                 
                     sh 'sudo docker build -t selenium-tests .'
 
-                    // Run container and connect to main app network
+                    
                     sh 'sudo docker run selenium-tests '
                 }
             }
